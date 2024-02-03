@@ -149,8 +149,6 @@ ULONG Project0GTags[] = {
 	(GTIN_Number), 0, (GTIN_MaxChars), 10, (TAG_DONE)
 };
 
-UBYTE selectedLVItem;
-
 int main()
 {
 	BOOL running = TRUE;
@@ -336,11 +334,11 @@ int Project0CloseWindow()
 int LISTVIEWClicked(void)
 {
 	printf("LISTVIEW-UP!\n");
-
 	printf("Item %1d selected.\n", Project0Msg.Code);
-	selectedLVItem = Project0Msg.Code;
-	GT_SetGadgetAttrs(Project0Gadgets[0], Project0Wnd, NULL, GTLV_Selected, selectedLVItem);
-	GT_SetGadgetAttrs(Project0Gadgets[5], Project0Wnd, NULL, GTNM_Number, selectedLVItem);
+
+	// Set selected Listview-Item
+	GT_SetGadgetAttrs(Project0Gadgets[0], Project0Wnd, NULL, GTLV_Selected, Project0Msg.Code);
+
 	return (TRUE);
 }
 
@@ -357,7 +355,6 @@ int BUTTONClicked(void)
 
 	// Set Text-Gadget to String-Gadget content
 	GT_SetGadgetAttrs(Project0Gadgets[12], Project0Wnd, NULL, GTTX_Text, ((struct StringInfo *)Project0Gadgets[11]->SpecialInfo)->Buffer);
-	GT_SetGadgetAttrs(Project0Gadgets[0], Project0Wnd, NULL, GTLV_Selected, selectedLVItem);
 
 	return (TRUE);
 }
